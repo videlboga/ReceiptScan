@@ -1,0 +1,10 @@
+python-telegram-bot==20.7
+pytesseract==0.3.10
+Pillow==10.1.0
+python-dotenv==1.0.0
+sqlalchemy==2.0.23
+alembic==1.13.1
+pydantic==2.5.2
+loguru==0.7.2
+PyPDF2==3.0.1
+pdf2image==1.16.3

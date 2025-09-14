@@ -1,0 +1,41 @@
+services:
+  bot:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile_flexible_v1
+    container_name: receipt_check_bot_flexible_v1
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - DATABASE_URL=sqlite:///app/bot.db
+      - FILES_PATH=/app/files
+      - TESSERACT_LANG=rus
+      - ENABLE_DEBUG=${ENABLE_DEBUG:-false}
+    volumes:
+      - ./data:/app/data
+      - ./files:/app/files
+      - ./logs:/app/logs
+      - ../validation_config_v1.yaml:/app/validation_config_v1.yaml:ro
+    command: python /app/bot_flexible_v1.py
+
+  # Опционально: PostgreSQL для продакшена
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: receipt_bot_db
+  #   restart: unless-stopped
+  #   environment:
+  #     POSTGRES_DB: receipt_bot
+  #     POSTGRES_USER: bot_user
+  #     POSTGRES_PASSWORD: ${DB_PASSWORD}
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - bot_network
+
+networks:
+  bot_network:
+    driver: bridge
+
+# volumes:
+#   postgres_data:
