@@ -163,6 +163,7 @@ Thumbs.db
 
 # Конфигурационные файлы с токенами
 validation_config.yaml
+validation_config_v1.yaml
 bot_config.py
 config/settings.py
 
